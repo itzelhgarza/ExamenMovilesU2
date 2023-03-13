@@ -7,27 +7,74 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 
 class Regalos : AppCompatActivity() {
+    var catalogo: ArrayList<Detalles> = ArrayList<Detalles>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_regalos)
 
-        var adapter: DetalleAdapter? = null
+        var option: String? = intent.getStringExtra("selection")
+        agregarProductos(option)
 
+        var listView: GridView = findViewById(R.id.catalogo_detalles) as GridView
 
+        var adaptador: DetalleAdapter = DetalleAdapter(this, catalogo)
+        listView.adapter = adaptador
 
     }
+
+    private fun agregarProductos(option: String?) {
+        when(option){
+            "Detalles" ->{
+                catalogo.add(Detalles(R.drawable.cumplebotanas,"Cumple botanas", "250"))
+                catalogo.add(Detalles(R.drawable.cumplecheve,"Cumple cheve", "250"))
+                catalogo.add(Detalles(R.drawable.cumpleescolar,"Cumple escolar", "250"))
+                catalogo.add(Detalles(R.drawable.cumplepaletas,"Cumple paletas", "250"))
+                catalogo.add(Detalles(R.drawable.cumplesnack,"Cumple snack", "250"))
+                catalogo.add(Detalles(R.drawable.cumplevinos,"Cumple vinos", "250"))
+            }
+            "Globos" ->{
+                catalogo.add(Detalles(R.drawable.globoamor,"Globo amor", "300"))
+                catalogo.add(Detalles(R.drawable.globocumple,"Globo cumple", "300"))
+                catalogo.add(Detalles(R.drawable.globofestejo,"Globo festejo", "300"))
+                catalogo.add(Detalles(R.drawable.globonum,"Globo num", "300"))
+                catalogo.add(Detalles(R.drawable.globos,"Globo regalo", "300"))
+                catalogo.add(Detalles(R.drawable.globos,"Globos", "300"))
+            }
+            "Peluches" ->{
+                catalogo.add(Detalles(R.drawable.peluchemario,"Peluche Mario", "200"))
+                catalogo.add(Detalles(R.drawable.pelucheminecraft,"Peluche minecraft", "200"))
+                catalogo.add(Detalles(R.drawable.peluchepeppa,"Peluche Peppa", "200"))
+                catalogo.add(Detalles(R.drawable.peluches,"Peluches", "200"))
+                catalogo.add(Detalles(R.drawable.peluchesony,"Peluche Sonic", "200"))
+                catalogo.add(Detalles(R.drawable.peluchevarios,"Peluche Stitch", "200"))
+            }
+            "Regalos" ->{
+                catalogo.add(Detalles(R.drawable.regaloazul,"Regalo azul", "150"))
+                catalogo.add(Detalles(R.drawable.regalobebe,"Regalo bebé", "150"))
+                catalogo.add(Detalles(R.drawable.regalocajas,"Regalo cajas", "150"))
+                catalogo.add(Detalles(R.drawable.regalocolores,"Regalo colores", "150"))
+                catalogo.add(Detalles(R.drawable.regalos,"Regalos", "150"))
+                catalogo.add(Detalles(R.drawable.regalovarios,"Regalo varios", "150"))
+            }
+            "Tazas" ->{
+                catalogo.add(Detalles(R.drawable.tazaabuela,"Taza Abuela", "200"))
+                catalogo.add(Detalles(R.drawable.tazalove,"Taza Love", "200"))
+                catalogo.add(Detalles(R.drawable.tazaquiero,"Taza Quiero", "200"))
+                catalogo.add(Detalles(R.drawable.tazas,"Tazas", "200"))
+            }
+        }
+    }
+
     class DetalleAdapter: BaseAdapter{
         var context: Context? = null
         var detalles = ArrayList<Detalles>()
 
         constructor(context: Context, detalles: ArrayList<Detalles>){
             this.context = context
-            this.detalles = peliculas
+            this.detalles = detalles
         }
         override fun getCount(): Int {
             return detalles.size
@@ -52,27 +99,17 @@ class Regalos : AppCompatActivity() {
 
             image.setImageResource(detalles.image)
             titulo.setText(detalles.titulo)
-            precio.setText(detalles.precio)
+            precio.setText("$${detalles.precio}")
 
             image.setOnClickListener{
-                //var seatsAvailable = 20 - pelicula.seats.size
-                //Log.d("SEATS", "$seatsAvailable")
-                var intento = Intent(context, ::class.java)
+                var intento = Intent(context, DetalleRegalos::class.java)
 
-                intento.putExtra("titulo", pelicula.titulo)
-                intento.putExtra("sinopsis", pelicula.sinopsis)
-                intento.putExtra("header", pelicula.header)
-                intento.putExtra("imagen", pelicula.image)
-                intento.putExtra("numberSeats",(20-pelicula.seats.size))
-                intento.putExtra("pos", position)
+                intento.putExtra("image", detalles.image)
+                intento.putExtra("titulo", detalles.titulo)
+                intento.putExtra("precio", "$${detalles.precio}")
                 context!!.startActivity(intento)
             }
             return vista
         }
-
-
-    }
-
-
     }
 }

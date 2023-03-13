@@ -8,16 +8,19 @@
     tools:context=".DetalleRegalos">
 
     <ImageView
-        android:layout_width="85dp"
-        android:layout_height="113dp"
-        android:layout_gravity="center"
         android:id="@+id/iv_regalo_imagen"
-        android:scaleType="fitXY"/>
+        android:layout_width="93dp"
+        android:layout_height="136dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/happybox" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
 
         <TextView
             android:id="@+id/tv_regalo_nombre"
@@ -25,10 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-light"
-
             android:textAlignment="center"
             android:textColor="@color/pink"
-            android:textSize="15dp" />
+            android:textSize="25dp"
+            android:text="Titulo"/>
 
         <TextView
             android:id="@+id/tv_regalo_precio"
@@ -36,10 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-light"
-
             android:textAlignment="center"
             android:textColor="@color/pink"
-            android:textSize="15dp" />
+            android:textSize="25dp"
+            android:text="$0.00"/>
 
 
     </LinearLayout>
